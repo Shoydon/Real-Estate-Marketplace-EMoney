@@ -28,6 +28,8 @@ function App() {
   useEffect(() => {
     if(chainId !== 4544) {
       setCorrectNetwork(false);
+    } else if (chainId === 4544) {
+      setCorrectNetwork(true);
     }
   }, [chainId])
 
@@ -65,6 +67,8 @@ function App() {
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
+        const bal = Number(await signer.getBalance());
+        console.log("balance: ", bal);
         setAccount(address);
         let marketplaceAddress = contractData.contractAddress;
         let marketplace_abi = contractData.contractAbi;
